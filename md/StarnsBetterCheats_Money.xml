@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheatsMoney"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+		<!--
+			Contains all the business logic regarding credits and credit handling.
+		-->
+	<cues>
+		<cue name="OnMoneySliderConfirm"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled />
+			</conditions>
+			<actions>
+				<debug_to_file name="md.StarnsBetterCheats.Config.$DebugDirectory"
+							   directory="'Starns'"
+							   append="true"
+							   text="md.$SystemTimeAtGamestart + ': Slider moved to ' + event.param.$value"/>
+				<set_value name="md.StarnsBetterCheats.Config.$VarMoneyToAddToPlayer"
+						   exact="event.param.$value"/>
+				<debug_to_file name="md.StarnsBetterCheats.Config.$DebugDirectory"
+							   directory="'Starns'"
+							   append="true"
+							   text="md.$SystemTimeAtGamestart + ' ' + player.age + ': New Saved Value = ' + md.StarnsBetterCheats.Config.$VarMoneyToAddToPlayer "/>
+			</actions>
+		</cue>
+
+		<cue name="OnMoneyCheatButtonConfirm"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<debug_to_file name="md.StarnsBetterCheats.Config.$DebugDirectory"
+							   directory="'Starns'"
+							   append="true"
+							   text="md.$SystemTimeAtGamestart + ' ' + player.age + ': Attempting to add ' + md.StarnsBetterCheats.Config.$VarMoneyToAddToPlayer + ' to player.'"/>
+				<reward_player money="(md.StarnsBetterCheats.Config.$VarMoneyToAddToPlayer)Cr" />
+			</actions>
+		</cue>
+	</cues>
+	
+</mdscript>

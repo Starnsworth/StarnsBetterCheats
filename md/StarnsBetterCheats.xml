@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheats"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+	<!--
+				Contains statics for use by other parts of the mod.
+				Ie, Config options and libraries that shouldn't change per run.
+				
+			-->
+	<cues>
+		<cue name="Config"
+			 version="1"
+			 instantiate="1">
+			<conditions>
+				<check_any>
+					<event_cue_signalled cue="md.Setup.GameStart" />
+					<event_universe_generated/>
+					<event_game_loaded />
+				</check_any>
+			</conditions>
+			<actions>
+				<!--Variables for the menus-->
+				<set_value name="$DebugDirectory"
+						   exact="'SBC' + player.age"/>
+				
+				<!--MoneyCheat-->
+				<set_value name="$VarMoneyToAddToPlayer"
+						   exact="10000"/>
+				
+				<!--Teleport-->
+				<set_value name="$TeleDestination"
+						   exact="[null,null, faction.player]"/>
+				<set_value name="$DockOnTele"
+						   exact ="false"/>
+				
+				<!--GodMode-->
+				<set_value name ="$GodMode"
+						   exact="false"/>
+				<set_value name="$GodModeWholeFactionScope"
+						   exact="false"/>
+				
+			</actions>
+
+		</cue>
+
+		<library name="Library_StarnsBetterCheatsGetFactions">
+			<!--Lovingly pilfered from DeadAir's scripts
+				then modified by Starns					-->
+			<!--cue.$FactionList-->
+			<actions>
+				<set_value name="$FactionList"
+						   exact="[]"/>
+				<set_value name="$ClaimspaceList"
+						   exact="[]"/>
+				<set_value name="$EconomicList"
+						   exact="[]"/>
+				<set_value name="$VisitorList"
+						   exact="[]"/>
+				<set_value name="$PrivateLoadoutList"
+						   exact="[]"/>
+				<set_value name="$HiddenList"
+						   exact="[]"/>
+				<set_value name="$ExcludedFactions"
+						   exact="[]"/>
+				<!-- Get Factions -->
+				<get_factions_by_tag tag="tag.claimspace"
+									 result="$ClaimspaceList"/>
+				<get_factions_by_tag tag="tag.economic"
+									 result="$EconomicList"/>
+				<get_factions_by_tag tag="tag.visitor"
+									 result="$VisitorList"
+									 comment="trash"/>
+				<get_factions_by_tag tag="tag.privateloadout"
+									 result="$PrivateLoadoutList"/>
+				<get_factions_by_tag tag="tag.hidden"
+									 result="$HiddenList"/>
+				<!-- Add Factions from ClaimspaceList EconomicList PrivateLoadoutList -->
+				<append_list_elements name="$FactionList"
+									  other="$ClaimspaceList"/>
+				<remove_from_list name="$EconomicList"
+								  list="$FactionList"
+								  multiple="true"/>
+				<append_list_elements name="$FactionList"
+									  other="$EconomicList"/>
+				<remove_from_list name="$PrivateLoadoutList"
+								  list="$FactionList"
+								  multiple="true"/>
+				<append_list_elements name="$FactionList"
+									  other="$PrivateLoadoutList"/>
+				<!-- Always remove HiddenList VisitorList -->
+				<append_list_elements name="$ExcludedFactions"
+									  other="$HiddenList"/>
+				<append_list_elements name="$ExcludedFactions"
+									  other="$VisitorList"/>
+				<!-- Remove factions that can not have relations changed -->
+				<append_to_list name="$ExcludedFactions"
+								exact="faction.khaak"/>
+				<append_to_list name="$ExcludedFactions"
+								exact="faction.xenon"/>
+				<remove_from_list name="$FactionList"
+								  list="$ExcludedFactions"
+								  multiple="true"/>
+				<do_for_each name="$LocFaction"
+							 in="$FactionList"
+							 reverse="true">
+					<do_if value="$LocFaction == null">
+						<remove_from_list name="$FactionList"
+										  exact="$LocFaction"/>
+					</do_if>
+					<do_elseif value="$LocFaction.isactive != true">
+						<remove_from_list name="$FactionList"
+										  exact="$LocFaction"/>
+					</do_elseif>
+				</do_for_each>
+				<sort_list list="$FactionList"
+						   sortbyvalue="loop.element.knownname"/>
+				<!-- $FactionList has the factions we care about -->
+			</actions>
+		</library>
+
+
+
+	</cues>
+</mdscript>
+<!--
+	==Faction Cheats==
+DONE:: Money Cheat
+DONE:: Faction Relations
+		- Build a list of all factions
+		- loop through list and dynamically build the menu
+		- allow user to modify their relation with faction
+		- Dont bother changing faction-faction relations as DA does it better.
+
+	==Player Cheats==
+TODO:: Teleporting
+		DONE - Ship to Space
+		- Auto Dock Ship to Station
+TODO:: Player God
+		- ignore onHit events
+		OR
+		- statically set health to 100%
+TODO:: Add Upgrade wares to player
+		-Build list of all upgrade wares and just add them to the user in the requested amount.
+TODO:: Add All Blueprints
+		- build list of all blueprints, then add to player.
+		- break down into blueprint sizes and station modules.
+		
+	==Debug Cheats==
+TODO:: Plot Debug stuff (Calling plots and resetting progress etc.)
+		- Not sure if even possible.
+		- Ideally we can repeat actions that were in a cue that has already been completed to 'reset' a bugged plot step.
+		- Maybe cancel the bugged cue and call again. Need to look into what options are available.
+TODO:: Map Discovery
+		- Dont need vision, just reveal what sector is where on the map
+		- loop through and add to player known info.
+TODO:: Set faction of selected ship.
+
+	==Fleet Cheats==
+TODO:: Spawn Ships/Fleets
+		- Select ship from drop down, select loadout from saved loadouts
+TODO:: God on Ships
+		- ignore onHit events
+		OR
+		- statically set health to 100%
+TODO:: Select crew level for certain ships.
+
+	==Station Cheats==
+TODO:: Fill Station Storages (Build etc)
+		- Populate menu with required wares, allow user to drag slider to select how full storage of ware is.
+TODO:: God on stations
+		- ignore onHit events
+		OR
+		- statically set health to 100%
+
+TODO:: 
+
+
+
+
+-->

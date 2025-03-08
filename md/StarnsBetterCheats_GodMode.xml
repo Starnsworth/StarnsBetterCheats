@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheats_GodModeMenu"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+	<cues>
+		<cue name="Register_Options_Menu"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled cue="md.Simple_Menu_API.Reloaded"/>
+
+			</conditions>
+			<actions>
+				<debug_text text="'Extension Options entry addition'"/>
+				<signal_cue_instantly
+					cue="md.Simple_Menu_API.Register_Options_Menu"
+					param = "table[
+        $id = 'starns_better_cheat_GodModeMenu',
+        $columns = 3, 
+        $title = {1819001, 19205},
+        $onOpen = Build_Better_Cheat_Menu_GodMode,
+		$private = 1
+        ]"/>
+			</actions>
+		</cue>
+
+		<cue name="Build_Better_Cheat_Menu_GodMode"
+			 instantiate ="true"
+			 namespace ="this">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param = "table[$col=1, $text='GodMode']"/>
+			</actions>
+
+		</cue>
+		
+		
+		<!-- Call This action with param ship as list of ships
+		and param MinHullPercent as the value to hold hull at.-->
+		<library name="Library_SetShipGodMode"
+				 purpose="run_actions">
+			<params>
+				<param name="Ship"/>
+				<param name="MinHullPercent"/>
+				<param name="IncludeEngines"
+					   default="true"/>
+				<param name="IncludeShields"
+					   default="true"/>
+				<param name="IncludeTurrets"
+					   default="true"/>
+			</params>
+			<actions>
+				<do_if value="$Ship">
+					<do_if value="$MinHullPercent == 0">
+						<set_value name="$IncludeEngines"
+								   exact="true"/>
+						<set_value name="$IncludeShields"
+								   exact="true"/>
+						<set_value name="$IncludeTurrets"
+								   exact="true"/>
+					</do_if>
+					<set_value name="$Components"
+							   exact="[]"/>
+					<do_if value="$IncludeEngines">
+						<find_object_component name="$Components"
+											   object="$Ship"
+											   class="class.engine"
+											   integrated="false"
+											   checkoperational="true"
+											   multiple="true"
+											   append="true"/>
+					</do_if>
+					<do_if value="$IncludeShields">
+						<find_object_component name="$Components"
+											   object="$Ship"
+											   class="class.shieldgenerator"
+											   integrated="false"
+											   checkoperational="true"
+											   multiple="true"
+											   append="true"/>
+					</do_if>
+					<do_if value="$IncludeTurrets">
+						<find_object_component name="$Components"
+											   object="$Ship"
+											   class="class.turret"
+											   integrated="false"
+											   checkoperational="true"
+											   multiple="true"
+											   append="true"/>
+					</do_if>
+					<do_for_each name="$Component"
+								 in="$Components">
+						<set_object_min_hull object="$Component"
+											 exact="$MinHullPercent"/>
+						<set_object_min_shield object="$Component"
+											   exact="$MinHullPercent"/>
+					</do_for_each>
+					<set_object_min_hull object="$Ship"
+										 exact="$MinHullPercent"/>
+					<set_object_min_shield object="$Ship"
+										   exact="$MinHullPercent"/>
+				</do_if>
+			</actions>
+		</library>
+	</cues>
+	
+</mdscript>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheats_RelationMenu"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+	<cues>
+		<cue name="Register_Options_Menu"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled cue="md.Simple_Menu_API.Reloaded"/>
+
+			</conditions>
+			<actions>
+				<debug_text text="'Extension Options entry addition'"/>
+				<signal_cue_instantly
+					cue="md.Simple_Menu_API.Register_Options_Menu"
+					param = "table[
+        $id = 'starns_better_cheat_RelationMenu',
+        $columns = 3, 
+        $title = {1819001, 18193},
+        $onOpen = Build_Better_Cheat_Menu_Relations,
+		$private = 1
+        ]"/>
+				<cancel_cue cue="this"/>
+			</actions>
+		</cue>
+
+		<cue name="Build_Better_Cheat_Menu_Relations"
+			 instantiate ="true"
+			 namespace ="this">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<include_actions ref="md.StarnsBetterCheats.Library_StarnsBetterCheatsGetFactions"/>
+				
+				<do_for_each name="$Faction"
+							 in="$FactionList">
+					<do_if value="$Faction != faction.player">
+						<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+						<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+											  param = "table[$col=1, $text= $Faction.knownname]"/>
+
+						<signal_cue_instantly cue="md.Simple_Menu_API.Make_Slider"
+											  param ="table[
+												$col = 2,
+												$colSpan = 2,
+												$text = table[$text=''],
+												$min = -30, $max = 30, $start = $Faction.relation.{$Faction.relationto.{faction.player}}.uivalue,
+												$fromCenter = true,
+												$echo = [$Faction],
+												$onSliderCellConfirm = FactionRepSliderAdjustmentOnConfirm
+												]"/>
+					</do_if>
+				</do_for_each>
+			</actions>
+			
+		</cue>
+
+		<cue name="FactionRepSliderAdjustmentOnConfirm"
+			 instantiate="1"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+			<set_value name="$RepAdjustFactionToAdjust"
+					   exact ="event.param.$echo.{1}"/>
+				<!--<set_value name="$RepDefinedList"
+						   exact="[30,25,20,15,10,5,0,-5,-10,-15,-20,-25,-30]"/>
+				<set_value name="$AbsRepDefinedList"
+						   exact="[1.0,0.32,0.1,0.032,0.01,0.0032,0,-0.0032,-0.01,-0.032,-0.1,-0.32,-1.0]"/>-->
+				<set_value name="$NewAbsoluteRepValue"
+						   exact="[[(10.0^(sqrt((event.param.$value)LF ^ 2.0)/10.0) / 1000.0) * (if (event.param.$value lt 0.0) then -1.0 else 1.0),-1.0].max,1.0].min"/>
+
+				<set_faction_relation faction="faction.player" otherfaction="$RepAdjustFactionToAdjust" value="$NewAbsoluteRepValue"/>
+				
+				<!--Super Janky way to ensure we get selected value despite calculation being off.
+				We just iterate up and down depending on change direction and hope we hit the right value.
+				Capped at +- 1-->
+				<do_while value="((event.param.$value != $RepAdjustFactionToAdjust.relation.{$RepAdjustFactionToAdjust.relationto.{faction.player}}.uivalue) and $NewAbsoluteRepValue gt $RepAdjustFactionToAdjust.relation.{$RepAdjustFactionToAdjust.relationto.{faction.player}}) or {$RepAdjustFactionToAdjust.relationto.{faction.player}} ge 1  ">
+					<debug_text text="'Calculated Rep Value = ' + $NewAbsoluteRepValue"/>
+					<set_value name="$NewAbsoluteRepValue"
+							   exact="$NewAbsoluteRepValue + 0.0001"/>
+					<set_faction_relation faction="faction.player"
+										  otherfaction="$RepAdjustFactionToAdjust"
+										  value="$NewAbsoluteRepValue"/>
+					<debug_text text="'Post Janky Adjustment = ' + $NewAbsoluteRepValue"/>
+				</do_while>
+				<do_while value="((event.param.$value != $RepAdjustFactionToAdjust.relation.{$RepAdjustFactionToAdjust.relationto.{faction.player}}.uivalue) and $NewAbsoluteRepValue lt $RepAdjustFactionToAdjust.relation.{$RepAdjustFactionToAdjust.relationto.{faction.player}}) or {$RepAdjustFactionToAdjust.relationto.{faction.player}} le -1 ">
+					<debug_text text="'Calculated Rep Value = ' + $NewAbsoluteRepValue"/>
+					<set_value name="$NewAbsoluteRepValue"
+							   exact="$NewAbsoluteRepValue - 0.0001"/>
+					<set_faction_relation faction="faction.player"
+										  otherfaction="$RepAdjustFactionToAdjust"
+										  value="$NewAbsoluteRepValue"/>
+					<debug_text text="'Post Janky Adjustment = ' + $NewAbsoluteRepValue"/>
+				</do_while>
+			</actions>
+		</cue>
+	</cues>
+	
+</mdscript>

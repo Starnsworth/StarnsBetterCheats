@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheats_PlayerTeleportMenu"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+	<cues>
+		<!--<cue name="TeleVars"
+			 instantiate ="true"
+			 namespace ="this">
+			<conditions>
+				<check_any>
+					<event_cue_signalled cue="md.Setup.GameStart" />
+					<event_universe_generated/>
+					<event_game_loaded />
+					<event_cue_signalled/>
+				</check_any>
+			</conditions>
+			<actions>
+				--><!--Element 1 = Zone in sector
+					Element 2 = specific position--><!--
+				<set_value name="$TeleDestination"
+						   exact="[null,null, player.faction]"/>
+				<debug_text text="'SBC: Post TeleDest setup============================================'"/>
+				<debug_text text="$TeleDestination"/>
+			</actions>
+		</cue>-->
+		
+		<cue name="Register_Options_Menu"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled cue="md.Simple_Menu_API.Reloaded"/>
+
+			</conditions>
+			<actions>
+				<debug_text text="'Extension Options entry addition'"/>
+				<signal_cue_instantly
+					cue="md.Simple_Menu_API.Register_Options_Menu"
+					param = "table[
+        $id = 'starns_better_cheat_PlayerTeleMenu',
+        $columns = 4, 
+        $title = {1819001, 18194},
+        $onOpen = Build_Better_Cheat_Menu_PlayerTele,
+		$private = 1
+        ]"/>
+			</actions>
+		</cue>
+
+		<cue name="Build_Better_Cheat_Menu_PlayerTele"
+			 instantiate ="true"
+			 namespace ="this">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+									  param="table[
+													$col = 1,
+													$colSpan = 1,
+													$checked = md.StarnsBetterCheats.Config.$DockOnTele,
+													$onClick = UpdateDockOnTeleCheckBox,
+													$width = 24,
+													$height = 24,
+													$halign = 'center',
+													$active = false]
+													"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param ="table[
+													$col = 2,
+													$colSpan = 2,
+													$text = 'Dock at selected station on teleport?']"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<do_if value="not md.StarnsBetterCheats.Config.$TeleDestination.{1}.knownname?">
+					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+										  param = "table[$col=1, 
+													 $colSpan = 1,				 
+													 $text='']"/>
+					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
+										  param = "table[
+													$id = 'TeleportConfirmButton',
+													$col = 2,
+													$colSpan = 3,
+													$onClick = TeleToLocation_OnClick,
+													$text = table[$text={1819001,18196}],
+													$active = false
+													]"/>
+				</do_if>
+				<do_else>
+					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+										  param = "table[$col=1, 
+													 $colSpan = 1,				 
+													 $text=md.StarnsBetterCheats.Config.$TeleDestination.{1}.knownname]"/>
+					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
+										  param = "table[
+													$id = 'TeleportConfirmButton',
+													$col = 2,
+													$colSpan = 3,
+													$onClick = TeleToLocation_OnClick,
+													$text = table[$text={1819001,18195}]
+													]"/>
+				</do_else>
+				
+
+
+			</actions>
+
+		</cue>
+
+		
+		
+		<!--Sets Tele Location-->
+		<cue name="FindSafeTeleLocation"
+			 instantiate="true">
+			<conditions>
+				<event_object_signalled object="player.entity"
+										param="'set guidance'"
+										comment="arguments passed with param2"/>
+			</conditions>
+			<actions>
+				<debug_text text="'SBC: FindSafeTele Fired'"/>
+				<debug_text text="event.param2.{1}"/>
+				<debug_text text="event.param2.{2}"/>
+				<!--<do_if value="not md.StarnsBetterCheats.Config.$TeleDestination?">
+					<debug_text text="'Televars Not Setup'"/>
+					<signal_cue_instantly cue="TeleVars"/>
+				</do_if>-->
+				
+				
+				<set_value name="$Target"
+						   exact="event.param2.{1}"/>
+				<do_if value="$Target.isclass.space">
+					<do_if value="event.param2.{2}">
+						<set_value name="$position"
+								   exact="event.param2.{2}"/>
+						<get_safe_pos result="$JumpPosition"
+									  value="$position"
+									  radius="player.ship.size/2"
+									  allowyaxis="true"
+									  zone="$Target"/>
+						<remove_value name="$position"/>
+					</do_if>
+					<do_else>
+						<get_safe_pos result="$JumpPosition"
+									  radius="player.ship.size/2"
+									  allowyaxis="true"
+									  zone="$Target"/>
+					</do_else>
+					<set_value name="$zone"
+							   exact="$Target"/>
+				</do_if>
+				<do_else>
+					<get_safe_pos result="$JumpPosition"
+								  value="$Target.position"
+								  radius="player.ship.size/2"
+								  allowyaxis="true"
+								  zone="$Target.zone"/>
+					<set_value name="$zone"
+							   exact="$Target.zone"/>
+				</do_else>
+				<set_value name="md.StarnsBetterCheats.Config.$TeleDestination.{1}"
+						   exact="$zone"/>
+				<set_value name="md.StarnsBetterCheats.Config.$TeleDestination.{2}"
+						   exact="$JumpPosition"/>
+			</actions>
+		</cue>
+
+		<cue name="TeleToLocation_OnClick"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<debug_text text="'SBC: Teleport requested.'"/>
+					<warp object="player.ship"
+						  zone="md.StarnsBetterCheats.Config.$TeleDestination.{1}">
+						<position value="md.StarnsBetterCheats.Config.$TeleDestination.{2}"/>
+					</warp>
+			</actions>
+		</cue>
+
+		<cue name="PrintTeleDest_OnClick"
+			 instantiate="true">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<debug_text text ="md.StarnsBetterCheats.Config.$TeleDestination"/>
+			</actions>
+			
+		</cue>
+		<cue name="UpdateDockOnTeleCheckBox"
+			 instantiate="true">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<set_value name="md.StarnsBetterCheats.Config.$DockOnTele" exact="event.param.$checked"/>
+			</actions>
+
+		</cue>
+	</cues>
+</mdscript>

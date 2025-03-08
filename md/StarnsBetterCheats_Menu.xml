@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheatsMenu"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+	
+	<!--
+		Contains only logic for building the main options menu. Sub-Menus (if any) will be given their own file.
+		Sub-Menu files shall be named as StarnsBetterCheatsMenu_[SubMenuTopic].xml
+		The script name shall be "StarnsBetterCheatsMenu[SubMenuTopic]"
+	-->
+	
+	<cues>
+		<cue name="Register_Options_Menu"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled cue="md.Simple_Menu_API.Reloaded"/>
+
+			</conditions>
+			<actions>
+				<debug_text text="'Extension Options entry addition'"/>
+				<debug_to_file name="md.StarnsBetterCheats.Config.$DebugDirectory"
+							   directory="'Starns'"
+							   append="false"
+							   text="md.$SystemTimeAtGamestart +' '+ player.age + ': Creating Option in Extension Options'"/>
+				<signal_cue_instantly
+					cue="md.Simple_Menu_API.Register_Options_Menu"
+					param = "table[
+        $id = 'starns_better_cheat_MainMenu',
+        $columns = 3, 
+        $title = {1819001, 18190},
+        $onOpen = Build_Better_Cheat_Menu
+        ]"/>
+				<cancel_cue cue="this"/>
+			</actions>
+		</cue>
+
+		<cue name="Build_Better_Cheat_Menu"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<debug_to_file name="md.StarnsBetterCheats.Config.$DebugDirectory"
+							   directory="'Starns'"
+							   append="true"
+							   text="md.$SystemTimeAtGamestart + ' ' + player.age + ': Creating SBC Options menu.'"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param = "table[$col=1, $text={1819001, 18192}]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Slider"
+									  param ="table[
+												$id = 'SliderMoneyToAddToPlayer',
+												$start = md.StarnsBetterCheats.Config.$VarMoneyToAddToPlayer,
+												$col = 2,
+												$colSpan = 3,
+												$text = table[$text=''],
+												$min = 0, $max = 1000000000, $suffix = 'Cr',
+												$default = md.StarnsBetterCheats.Config.$VarMoneyToAddToPlayer,
+												$onSliderCellConfirm = md.StarnsBetterCheatsMoney.OnMoneySliderConfirm
+												]"/>
+				
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param = "table[$col=1, $text='']"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
+									  param="table[
+												$col = 2,
+												$colSpan = 2,
+												$text = table[$text={1819001, 18191}],
+												$onClick = md.StarnsBetterCheatsMoney.OnMoneyCheatButtonConfirm,
+												$default = 0,
+												]"/>
+				
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
+									  param="table[
+												$text={1819001, 18193},
+												$id='starns_better_cheat_RelationMenu']"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
+									  param="table[
+												$text={1819001, 18194},
+												$id='starns_better_cheat_PlayerTeleMenu']"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
+									  param="table[
+												$text={1819001, 19205},
+												$id='starns_better_cheat_GodModeMenu']"/>
+				
+				
+				
+			</actions>
+		</cue>
+	</cues>
+</mdscript>

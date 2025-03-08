@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+	<page id="1819001"
+		  voice="no">
+		<!--==Faction Cheats==-->
+		<!--Money Cheat Text-->
+		<t id="18190">Starns Better Cheat Menu</t>
+		<t id="18191">Add Credits To Player</t>
+		<t id="18192">Add Credits:</t>
+		<!--Faction Relations Text-->
+		<t id ="18193">SBC Faction Relations</t>
+		<!--==Player Cheats==-->
+		<!--Teleporting-->
+		<t id="18194">Teleport Options</t>
+		<t id="18195">Teleport to Map Guidance</t>
+		<t id="18196">Use guidance to select teleport destination</t>
+		<!--Player God-->
+		<t id="19205">God Mode Menu</t>
+		<!--Add Upgrade wares to player-->
+		<!--Add All Blueprints-->
+		
+		<!--==Debug Cheats==-->
+		<!--Plot Debug-->
+		<!--Map Discovery-->
+		<!--Set faction of selected ship.-->
+		
+		<!--==Fleet Cheats==-->
+		<!--Spawn Ships/Fleets-->
+		<!--God on Ships-->
+		<!--Select crew level-->
+		
+		<!--==Station Cheats==-->
+		<!--Fill Station Storages-->
+		<!--God on stations-->
+		
+	</page>
+</language>
