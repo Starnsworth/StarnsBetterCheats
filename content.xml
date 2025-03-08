@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<content id="AutoFilledByTheTool"
-		 name="Starns Better Cheat Menu"
-		 description="Cheats using the mod support APIs that dont randomly break things in the background. Requires Sirnukes modding APIs."
-		 author="Starns"
-		 version="100"
-		 date="2025-02-03"
-		 save="0">
-	<dependency id="ego_dlc_split"
-				optional="true"
-				name="Split Vendetta"/>
-	<dependency id="ego_dlc_terran"
-				optional="true"
-				name="Cradle of Humanity"/>
-	<dependency id="ego_dlc_pirate"
-				optional="true"
-				name="Tides of Avarice"/>
-	<dependency id="ego_dlc_boron"
-				optional="true"
-				name="Kingdoms End"/>
-	<dependency id="ego_dlc_timelines"
-				optional="true"
-				name="Timelines DLC"/>
-	<dependency id="ws_2042901274"
-				optional="false"
-				name="SirNukes Mod Support APIs" />
+<content id="ws_3440339883" name="Starns Better Cheat Menu" description="Cheats using the mod support APIs that dont randomly break things in the background. Requires Sirnukes modding APIs." author="Starns" version="100" date="2025-03-08" save="0" sync="false" lastupdate="1741402576">
+  <dependency id="ego_dlc_split" optional="true" name="Split Vendetta"/>
+  <dependency id="ego_dlc_terran" optional="true" name="Cradle of Humanity"/>
+  <dependency id="ego_dlc_pirate" optional="true" name="Tides of Avarice"/>
+  <dependency id="ego_dlc_boron" optional="true" name="Kingdom End"/>
+  <dependency id="ego_dlc_timelines" optional="true" name="Timelines"/>
+  <dependency id="ws_2042901274" optional="false" name="SirNukes Mod Support APIs"/>
 </content>
