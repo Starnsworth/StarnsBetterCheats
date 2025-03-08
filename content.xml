@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <content id="AutoFilledByTheTool"
 		 name="Starns Better Cheat Menu"
-		 description="Cheats using the mod support APIs that dont randomly break things in the background."
+		 description="Cheats using the mod support APIs that dont randomly break things in the background. Requires Sirnukes modding APIs."
 		 author="Starns"
 		 version="100"
 		 date="2025-02-03"
