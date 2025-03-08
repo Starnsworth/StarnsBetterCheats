@@ -1,4 +1,9 @@
 # StarnsBetterCheats
+This is intended to replace iseeu0's conversational cheat menu.
+Common consensus is that the existing cheat menu for x4 touches too many things that it shouldn't so this is being made to replace that menu for one that effects only the bare minimum to make the cheat work.
+
+
+# Functions & Todo
 ## Faction Cheats
 
 ### DONE:: Money Cheat
