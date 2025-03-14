@@ -23,7 +23,8 @@
         ]"/>
 			</actions>
 		</cue>
-
+		<!--Make a drop down that selects the ship size, then dropdown to select specific ships. Also have a switch for all player ships.
+	Should also have an option to make a selected ship invicible so that plot ships dont get shwacked.-->
 		<cue name="Build_Better_Cheat_Menu_GodMode"
 			 instantiate ="true"
 			 namespace ="this">
@@ -33,79 +34,168 @@
 			<actions>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
-									  param = "table[$col=1, $text='GodMode']"/>
+									  param = "table[$col=1, $text={1819001,19208}]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
+									  param="table[
+											$id = 'PlayerScopeButton',
+											$col = 2,
+											$colSpan = 2,
+											$text = table[$text = if md.StarnsBetterCheats.Config.$GodModePlayerScope == false then {1819001,19206} else {1819001,19207},
+														 $color = if md.StarnsBetterCheats.Config.$GodModePlayerScope == false then 'Color.SBC_text_green' else 'Color.SBC_text_red'],
+											$onClick = SBC_ToggleGodMode_PlayerScope]
+											"/>
+				
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param = "table[$col=1, $text={1819001,19208}]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
+									  param="table[
+											$id = 'FactionScopeButton',
+											$col = 2,
+											$colSpan = 2,
+											$text = table[$text = if md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == false then {1819001,19206} else {1819001,19207},
+														 $color = if md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == false then 'Color.SBC_text_green' else 'Color.SBC_text_red'],
+											$onClick = SBC_ToggleGodMode_FactionScope]
+											"/>
 			</actions>
 
 		</cue>
-		
-		
+
+		<cue name="SBC_ToggleGodMode_PlayerScope"
+			 instantiate ="true">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+        <debug_text text="'SBC: Hit Godmode Player Scope'"/>
+        <debug_text text="'SBC: playerscope enable currently = ' + md.StarnsBetterCheats.Config.$GodModePlayerScope"/>
+				<do_if value="md.StarnsBetterCheats.Config.$GodModePlayerScope == true">
+          <debug_text text="'SBC: Setting Playerscope to False'"/>
+					<set_value name="md.StarnsBetterCheats.Config.$GodModePlayerScope"
+							   exact="false"/>
+				</do_if>
+				<do_elseif value="md.StarnsBetterCheats.Config.$GodModePlayerScope == false">
+          <debug_text text="'SBC: Setting playerscope to true'"/>
+					<set_value name="md.StarnsBetterCheats.Config.$GodModePlayerScope"
+							   exact="true"/>
+				</do_elseif>
+        <debug_text text="'SBC: running Library_SetShipGodMode on player.ship with enable: ' + md.StarnsBetterCheats.Config.$GodModePlayerScope"/>
+				<run_actions ref="Library_SetShipGodMode">
+					<param name="Ship"
+						   value="player.ship"/>
+					<param name="Enable"
+						   value="md.StarnsBetterCheats.Config.$GodModePlayerScope"/>
+				</run_actions>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Refresh_Menu"/>
+			</actions>
+		</cue>
+
+		<cue name="SBC_ToggleGodMode_FactionScope"
+			 instantiate="true">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+        <debug_text text="'SBC: Hit Godmode Faction Scope'"/>
+        <debug_text text="'SBC: factionscope enable currently = ' + md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"/>
+				<do_if value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == true">
+          <debug_text text="'SBC: Setting FactionScope to False'"/>
+					<set_value name="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"
+							   exact="false"/>
+				</do_if>
+				<do_elseif value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == false">
+					<set_value name="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"
+							   exact="true"/>
+          <debug_text text="'SBC: Setting FactionScope to true'"/>
+				</do_elseif>
+				<set_value name="$PlayerFactionShips"
+						   exact="[]"/>
+				<find_ship name="$PlayerFactionShips"
+						   owner="faction.player"
+						   space="player.galaxy"
+						   multiple="true"/>
+        <debug_text text="'SBC: running Library_SetShipGodMode on ' + $PlayerFactionShips + ' with enable: ' + md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"/>
+				<do_all exact="$PlayerFactionShips.count"
+						counter="$index">
+
+
+					<run_actions ref="Library_SetShipGodMode">
+						<param name="Ship"
+							   value="$PlayerFactionShips.{$index}"/>
+						<param name="Enable"
+							   value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"/>
+					</run_actions>
+				</do_all>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Refresh_Menu"/>
+			</actions>
+		</cue>
+
 		<!-- Call This action with param ship as list of ships
 		and param MinHullPercent as the value to hold hull at.-->
 		<library name="Library_SetShipGodMode"
 				 purpose="run_actions">
 			<params>
 				<param name="Ship"/>
-				<param name="MinHullPercent"/>
-				<param name="IncludeEngines"
-					   default="true"/>
-				<param name="IncludeShields"
-					   default="true"/>
-				<param name="IncludeTurrets"
-					   default="true"/>
+				<param name="Enable"/>
 			</params>
 			<actions>
-				<do_if value="$Ship">
-					<do_if value="$MinHullPercent == 0">
-						<set_value name="$IncludeEngines"
-								   exact="true"/>
-						<set_value name="$IncludeShields"
-								   exact="true"/>
-						<set_value name="$IncludeTurrets"
-								   exact="true"/>
-					</do_if>
-					<set_value name="$Components"
-							   exact="[]"/>
-					<do_if value="$IncludeEngines">
-						<find_object_component name="$Components"
-											   object="$Ship"
-											   class="class.engine"
-											   integrated="false"
-											   checkoperational="true"
-											   multiple="true"
-											   append="true"/>
-					</do_if>
-					<do_if value="$IncludeShields">
-						<find_object_component name="$Components"
-											   object="$Ship"
-											   class="class.shieldgenerator"
-											   integrated="false"
-											   checkoperational="true"
-											   multiple="true"
-											   append="true"/>
-					</do_if>
-					<do_if value="$IncludeTurrets">
-						<find_object_component name="$Components"
-											   object="$Ship"
-											   class="class.turret"
-											   integrated="false"
-											   checkoperational="true"
-											   multiple="true"
-											   append="true"/>
-					</do_if>
+				<set_value name="$Components"
+						   exact="[]"/>
+
+				<find_object_component name="$Components"
+									   object="$Ship"
+									   class="class.engine"
+									   integrated="false"
+									   checkoperational="true"
+									   multiple="true"
+									   append="true"/>
+
+				<find_object_component name="$Components"
+									   object="$Ship"
+									   class="class.shieldgenerator"
+									   integrated="false"
+									   checkoperational="true"
+									   multiple="true"
+									   append="true"/>
+
+				<find_object_component name="$Components"
+									   object="$Ship"
+									   class="class.turret"
+									   integrated="false"
+									   checkoperational="true"
+									   multiple="true"
+									   append="true"/>
+				<do_if value="$Enable == true">
 					<do_for_each name="$Component"
 								 in="$Components">
+
 						<set_object_min_hull object="$Component"
-											 exact="$MinHullPercent"/>
+											 exact="100"/>
 						<set_object_min_shield object="$Component"
-											   exact="$MinHullPercent"/>
+											   exact="100"/>
 					</do_for_each>
 					<set_object_min_hull object="$Ship"
-										 exact="$MinHullPercent"/>
+										 exact="100"/>
 					<set_object_min_shield object="$Ship"
-										   exact="$MinHullPercent"/>
+										   exact="100"/>
 				</do_if>
+				<do_elseif value="$Enable == false">
+					<do_for_each name="$Component"
+								 in="$Components">
+
+						<set_object_min_hull object="$Component"
+											 exact="0"/>
+						<set_object_min_shield object="$Component"
+											   exact="0"/>
+					</do_for_each>
+					<set_object_min_hull object="$Ship"
+										 exact="0"/>
+					<set_object_min_shield object="$Ship"
+										   exact="0"/>
+				</do_elseif>
 			</actions>
 		</library>
 	</cues>
-	
+
 </mdscript>

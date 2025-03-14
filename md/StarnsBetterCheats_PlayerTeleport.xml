@@ -2,28 +2,7 @@
 <mdscript name="StarnsBetterCheats_PlayerTeleportMenu"
 		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
-	<cues>
-		<!--<cue name="TeleVars"
-			 instantiate ="true"
-			 namespace ="this">
-			<conditions>
-				<check_any>
-					<event_cue_signalled cue="md.Setup.GameStart" />
-					<event_universe_generated/>
-					<event_game_loaded />
-					<event_cue_signalled/>
-				</check_any>
-			</conditions>
-			<actions>
-				--><!--Element 1 = Zone in sector
-					Element 2 = specific position--><!--
-				<set_value name="$TeleDestination"
-						   exact="[null,null, player.faction]"/>
-				<debug_text text="'SBC: Post TeleDest setup============================================'"/>
-				<debug_text text="$TeleDestination"/>
-			</actions>
-		</cue>-->
-		
+	<cues>		
 		<cue name="Register_Options_Menu"
 			 instantiate="true"
 			 namespace="this">
@@ -53,7 +32,7 @@
 			</conditions>
 			<actions>
 				
-				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<!--<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
 									  param="table[
 													$col = 1,
@@ -69,7 +48,7 @@
 									  param ="table[
 													$col = 2,
 													$colSpan = 2,
-													$text = 'Dock at selected station on teleport?']"/>
+													$text = 'Dock at selected station on teleport?']"/>-->
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<do_if value="not md.StarnsBetterCheats.Config.$TeleDestination.{1}.knownname?">
 					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"

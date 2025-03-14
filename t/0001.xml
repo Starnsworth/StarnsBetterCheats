@@ -16,6 +16,10 @@
 		<t id="18196">Use guidance to select teleport destination</t>
 		<!--Player God-->
 		<t id="19205">God Mode Menu</t>
+		<t id="19206">Activate God Mode</t>
+		<t id ="19207">De-activate God Mode</t>
+    <t id="19208">Player Ship Only</t>
+    <t id="19209">Whole Faction</t>
 		<!--Add Upgrade wares to player-->
 		<!--Add All Blueprints-->
 		
