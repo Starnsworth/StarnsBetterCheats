@@ -70,12 +70,12 @@
 			<actions>
         <debug_text text="'SBC: Hit Godmode Player Scope'"/>
         <debug_text text="'SBC: playerscope enable currently = ' + md.StarnsBetterCheats.Config.$GodModePlayerScope"/>
-				<do_if value="md.StarnsBetterCheats.Config.$GodModePlayerScope == 'true'">
+				<do_if value="md.StarnsBetterCheats.Config.$GodModePlayerScope == true">
           <debug_text text="'SBC: Setting Playerscope to False'"/>
 					<set_value name="md.StarnsBetterCheats.Config.$GodModePlayerScope"
 							   exact="false"/>
 				</do_if>
-				<do_elseif value="md.StarnsBetterCheats.Config.$GodModePlayerScope == 'false'">
+				<do_elseif value="md.StarnsBetterCheats.Config.$GodModePlayerScope == false">
           <debug_text text="'SBC: Setting playerscope to true'"/>
 					<set_value name="md.StarnsBetterCheats.Config.$GodModePlayerScope"
 							   exact="true"/>
@@ -99,12 +99,12 @@
 			<actions>
         <debug_text text="'SBC: Hit Godmode Faction Scope'"/>
         <debug_text text="'SBC: factionscope enable currently = ' + md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"/>
-				<do_if value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == 'true'">
+				<do_if value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == true">
           <debug_text text="'SBC: Setting FactionScope to False'"/>
 					<set_value name="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"
 							   exact="false"/>
 				</do_if>
-				<do_elseif value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == 'false'">
+				<do_elseif value="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope == false">
 					<set_value name="md.StarnsBetterCheats.Config.$GodModeWholeFactionScope"
 							   exact="true"/>
           <debug_text text="'SBC: Setting FactionScope to true'"/>
@@ -166,7 +166,7 @@
 									   checkoperational="true"
 									   multiple="true"
 									   append="true"/>
-				<do_if value="$Enable == 'true'">
+				<do_if value="$Enable == true">
 					<do_for_each name="$Component"
 								 in="$Components">
 
@@ -180,7 +180,7 @@
 					<set_object_min_shield object="$Ship"
 										   exact="100"/>
 				</do_if>
-				<do_elseif value="$Enable == 'false'">
+				<do_elseif value="$Enable == false">
 					<do_for_each name="$Component"
 								 in="$Components">
 
