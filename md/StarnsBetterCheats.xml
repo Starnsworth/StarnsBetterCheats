@@ -34,7 +34,7 @@
 						   exact ="false"/>
 				
 				<!--GodMode-->
-				<set_value name ="$GodMode"
+				<set_value name ="$GodModePlayerScope"
 						   exact="false"/>
 				<set_value name="$GodModeWholeFactionScope"
 						   exact="false"/>
