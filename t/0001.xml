@@ -26,6 +26,12 @@
 		<!--==Debug Cheats==-->
 		<!--Plot Debug-->
 		<!--Map Discovery-->
+    <t id="19501">Map Vision Options</t>
+    <t id="19502">Show Shipyards and Wharfs</t>
+    <t id="19503">Show Trade Stations</t>
+    <t id="19504">Show All Production Stations</t>
+    <t id="19505">Show Faction Stations</t>
+    <t id="19506">Show Highway Paths</t>
 		<!--Set faction of selected ship.-->
 		
 		<!--==Fleet Cheats==-->

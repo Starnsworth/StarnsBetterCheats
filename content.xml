@@ -7,23 +7,11 @@
          date="2025-03-14"
          save="0"
          sync="false"
-         lastupdate="1741942391">
-  <dependency id="ego_dlc_split"
-              optional="true"
-              name="Split Vendetta"/>
-  <dependency id="ego_dlc_terran"
-              optional="true"
-              name="Cradle of Humanity"/>
-  <dependency id="ego_dlc_pirate"
-              optional="true"
-              name="Tides of Avarice"/>
-  <dependency id="ego_dlc_boron"
-              optional="true"
-              name="Kingdom End"/>
-  <dependency id="ego_dlc_timelines"
-              optional="true"
-              name="Timelines"/>
-  <dependency id="ws_2042901274"
-              optional="false"
-              name="SirNukes Mod Support APIs"/>
+         lastupdate="1741945233">
+  <dependency id="ego_dlc_split" optional="true" name="Split Vendetta"/>
+  <dependency id="ego_dlc_terran" optional="true" name="Cradle of Humanity"/>
+  <dependency id="ego_dlc_pirate" optional="true" name="Tides of Avarice"/>
+  <dependency id="ego_dlc_boron" optional="true" name="Kingdom End"/>
+  <dependency id="ego_dlc_timelines" optional="true" name="Timelines"/>
+  <dependency id="ws_2042901274" optional="false" name="SirNukes Mod Support APIs"/>
 </content>

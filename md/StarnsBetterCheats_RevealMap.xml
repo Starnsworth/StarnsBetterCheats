@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="StarnsBetterCheats_RevealMapMenu"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
+	<cues>
+		<cue name="Register_Options_Menu"
+			 instantiate="true"
+			 namespace="this">
+			<conditions>
+				<event_cue_signalled cue="md.Simple_Menu_API.Reloaded"/>
+
+			</conditions>
+			<actions>
+				<debug_text text="'Extension Options entry addition'"/>
+				<signal_cue_instantly
+					cue="md.Simple_Menu_API.Register_Options_Menu"
+					param = "table[
+        $id = 'starns_better_cheat_RevealMapMenu',
+        $columns = 4, 
+        $title = 'RevealMap',
+        $onOpen = Build_Better_Cheat_Menu_RevealMap,
+		$private = 1
+        ]"/>
+			</actions>
+		</cue>
+		<cue name="Build_Better_Cheat_Menu_RevealMap"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled />
+			</conditions>
+			<actions>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_BoxText"
+							  param="table[$col = 1,$colSpan = 4, $text = 'Toggle below options, then click the reveal button', $halign = 'center']"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+									  param="table[
+													$col = 1,
+													$colSpan = 1,
+													$checked = md.StarnsBetterCheats.Config.$PlayerSelectUncoverShipyardAndWharf,
+													$onClick = UpdatePlayerSelectUncoverShipyardAndWharf,
+													$width = 24,
+													$height = 24,
+													$halign = 'center',
+													$active = true]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param="table[$col = 2,$colSpan = event.param.$columns - 1, $text = {1819001,19502}]"/>
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+									  param="table[
+													$col = 1,
+													$colSpan = 1,
+													$checked = md.StarnsBetterCheats.Config.$PlayerSelectUncoverTradeStations,
+													$onClick = UpdatePlayerSelectUncoverTradeStations,
+													$width = 24,
+													$height = 24,
+													$halign = 'center',
+													$active = true]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param="table[$col = 2,$colSpan = event.param.$columns - 1, $text = {1819001,19503}]"/>
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+									  param="table[
+													$col = 1,
+													$colSpan = 1,
+													$checked = md.StarnsBetterCheats.Config.$PlayerSelectUncoverAllStations,
+													$onClick = UpdatePlayerSelectUncoverAllStations,
+													$width = 24,
+													$height = 24,
+													$halign = 'center',
+													$active = true]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param="table[$col = 2,$colSpan = event.param.$columns - 1, $text = {1819001,19504}]"/>
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+									  param="table[
+													$col = 1,
+													$colSpan = 1,
+													$checked = md.StarnsBetterCheats.Config.$PlayerSelectStationFaction,
+													$onClick = UpdatePlayerSelectStationFaction,
+													$width = 24,
+													$height = 24,
+													$halign = 'center',
+													$active = true]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param="table[$col = 2,$colSpan = event.param.$columns - 1, $text = {1819001,19505}]"/>
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+									  param="table[
+													$col = 1,
+													$colSpan = 1,
+													$checked = md.StarnsBetterCheats.Config.$PlayerSelectUncoverHighways,
+													$onClick = UpdatePlayerSelectUncoverUncoverHighways,
+													$width = 24,
+													$height = 24,
+													$halign = 'center',
+													$active = true]"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+									  param="table[$col = 2,$colSpan = event.param.$columns - 1, $text = {1819001,19506}]"/>
+				
+				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
+							  param ="table[
+										$text = table[$text = 'Click to reveal'],
+										$onClick = RevealSectorsOnMap,
+										$col = 1,
+										$colSpan = event.param.$columns]
+										"/>
+			</actions>
+		</cue>
+		<cue name="RevealSectorsOnMap"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<debug_text text="'$PlayerSelectUncoverShipyardAndWharf: ' + md.StarnsBetterCheats.Config.$PlayerSelectUncoverShipyardAndWharf"/>
+				<debug_text text="'$PlayerSelectUncoverTradeStations: ' + md.StarnsBetterCheats.Config.$PlayerSelectUncoverTradeStations"/>
+				<debug_text text="'$PlayerSelectUncoverAllStations: ' + md.StarnsBetterCheats.Config.$PlayerSelectUncoverAllStations"/>
+				<debug_text text="'$PlayerSelectStationFaction: ' + md.StarnsBetterCheats.Config.$PlayerSelectStationFaction"/>
+				<debug_text text="'$PlayerSelectUncoverHighways: ' + md.StarnsBetterCheats.Config.$PlayerSelectUncoverHighways"/>
+				
+				<run_actions ref="md.LIB_Generic.UncoverMap_SectorsAndGates">
+					<param name="InitialMap"
+						   value ="$InitialMap"/>
+					<param name="UncoverShipyardsAndWharfs"
+						   value ="md.StarnsBetterCheats.Config.$PlayerSelectUncoverShipyardAndWharf"/>
+					<param name="UncoverTradeStations"
+						   value ="md.StarnsBetterCheats.Config.$PlayerSelectUncoverTradeStations"/>
+					<param name="UncoverAllStations"
+						   value ="md.StarnsBetterCheats.Config.$PlayerSelectUncoverAllStations"/>
+					<param name="UncoverStationFaction"
+						   value ="md.StarnsBetterCheats.Config.$PlayerSelectStationFaction"/>
+					<param name="UncoverHighways"
+						   value ="md.StarnsBetterCheats.Config.$PlayerSelectUncoverHighways"/>
+					
+				</run_actions>
+			</actions>
+		</cue>
+
+		<cue name="UpdatePlayerSelectUncoverShipyardAndWharf"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<set_value name="md.StarnsBetterCheats.Config.$PlayerSelectUncoverShipyardAndWharf"
+						   exact="event.param.$checked"/>
+			</actions>
+		</cue>
+		<cue name="UpdatePlayerSelectUncoverTradeStations"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<set_value name="md.StarnsBetterCheats.Config.$PlayerSelectUncoverTradeStations"
+						   exact="event.param.$checked"/>
+			</actions>
+		</cue>
+		<cue name="UpdatePlayerSelectUncoverAllStations"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<set_value name="md.StarnsBetterCheats.Config.$PlayerSelectUncoverAllStations"
+						   exact="event.param.$checked"/>
+			</actions>
+		</cue>
+		<cue name="UpdatePlayerSelectStationFaction"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<set_value name="md.StarnsBetterCheats.Config.$PlayerSelectStationFaction"
+						   exact="event.param.$checked"/>
+			</actions>
+		</cue>
+		<cue name="UpdatePlayerSelectUncoverUncoverHighways"
+			 instantiate="1">
+			<conditions>
+				<event_cue_signalled/>
+			</conditions>
+			<actions>
+				<set_value name="md.StarnsBetterCheats.Config.$PlayerSelectUncoverHighways"
+						   exact="event.param.$checked"/>
+			</actions>
+		</cue>
+		
+		
+		
+		
+	</cues>
+</mdscript>

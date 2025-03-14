@@ -38,7 +38,19 @@
 						   exact="false"/>
 				<set_value name="$GodModeWholeFactionScope"
 						   exact="false"/>
-				
+        
+        <!--MapReveal-->
+        <set_value name="$PlayerSelectUncoverShipyardAndWharf"
+                   exact="true"/>
+        <set_value name="$PlayerSelectUncoverTradeStations"
+                   exact="true"/>
+        <set_value name="$PlayerSelectUncoverAllStations"
+                   exact="true"/>
+        <set_value name="$PlayerSelectStationFaction"
+                   exact="true"/>
+        <set_value name="$PlayerSelectUncoverHighways"
+                   exact="true"/>
+        
 			</actions>
 
 		</cue>
