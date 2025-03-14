@@ -48,7 +48,7 @@
 				
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
-									  param = "table[$col=1, $text={1819001,19208}]"/>
+									  param = "table[$col=1, $text={1819001,19209}]"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
 									  param="table[
 											$id = 'FactionScopeButton',
