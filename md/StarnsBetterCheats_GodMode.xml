@@ -34,7 +34,7 @@
 			<actions>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
-									  param = "table[$col=1, $text='PlayerShip Only']"/>
+									  param = "table[$col=1, $text={1819001,19208}]"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
 									  param="table[
 											$id = 'PlayerScopeButton',
@@ -48,7 +48,7 @@
 				
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
-									  param = "table[$col=1, $text='Whole Faction']"/>
+									  param = "table[$col=1, $text={1819001,19208}]"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
 									  param="table[
 											$id = 'FactionScopeButton',
