@@ -3,7 +3,7 @@
          name="Starns Better Cheat Menu"
          description="Cheats using the mod support APIs that don't randomly break things in the background.  This is intended to replace iseeu0's conversational cheat menu. Common consensus is that the existing cheat menu for x4 touches too many things that it shouldn't so this is being made to replace that menu for one that effects only the bare minimum to make the cheat work.  Feel free to fork and pull this repo from [url=https://github.com/Starnsworth/StarnsBetterCheats]the github.[/url]  [h1]Implemented Functions[/h1] [h2]Faction Cheats[/h2] [list] [*]Money Cheat [*]Faction Relations - All Factions [*] God Mode on All Player Ships [/list] [h2]Player Cheats[/h2] [list] [*]Player God [*]Teleporting - Ship to Space [/list]  [h2]Not Yet Implemented Functions[/h2] [list] [*]Add Upgrade Wares to Player [*] Add All Blueprints [*] Plot Debug Stuff (Calling Plots and Resetting Progress, etc.) [*] Map Discovery [*] Set Faction of Selected Ship [*] Spawn Ships/Fleets [*] Arbirtrary selection of ship to give godmode to [*] Granular control of God Mode to faction ships. [*] Select Crew Level for Certain Ships [*] Fill Station Storages (Build, etc.) [*]God Mode on Stations [/list]"
          author="Starns"
-         version="101"
+         version="102"
          date="2025-03-14"
          save="0"
          sync="false"

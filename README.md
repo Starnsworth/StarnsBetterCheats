@@ -6,6 +6,7 @@ Feel free to fork and pull this repo. Please keep functions to their own xml fil
 
 
 # Functions
+All Functions are found within the extension options menu.
 ## Implimented Functions
 
 * Money Cheat
@@ -22,6 +23,11 @@ Feel free to fork and pull this repo. Please keep functions to their own xml fil
 * Player Faction God Mode
 	- *Click faction button to toggle.*
 
+* Reveal Map
+	- *Select which kind of objects you want to reveal. Then click the reveal button*
+	- *This specifically does not remove the fog of war*
+
+
 ## Not Yet Implimented Functions
 * Select Crew Level for Certain Ships
 * Fill Station Storages (Build, etc.)
@@ -34,8 +40,6 @@ Feel free to fork and pull this repo. Please keep functions to their own xml fil
 	- Build a list of all blueprints, then add them to the player.
 	- Break down into blueprint sizes and station modules.
 * Plot Debug Stuff (Calling Plots & Resetting Progress, etc.)
-
-* Map Discovery
 
 * Set Faction of Selected Ship
 * Spawn Ships/Fleets
