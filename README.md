@@ -37,7 +37,6 @@ Feel free to fork and pull this repo. Please keep functions to their own xml fil
 
 * Map Discovery
 
-
 * Set Faction of Selected Ship
 * Spawn Ships/Fleets
 	- Select ship from dropdown
