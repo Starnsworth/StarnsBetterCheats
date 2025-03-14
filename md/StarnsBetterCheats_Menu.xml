@@ -73,8 +73,7 @@
 												$onClick = md.StarnsBetterCheatsMoney.OnMoneyCheatButtonConfirm,
 												$default = 0,
 												]"/>
-				
-				
+        
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
 									  param="table[
@@ -90,6 +89,11 @@
 									  param="table[
 												$text={1819001, 19205},
 												$id='starns_better_cheat_GodModeMenu']"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
+                              param="table[
+												$text={1819001, 19501},
+												$id='starns_better_cheat_RevealMapMenu']"/>
 				
 				
 				
