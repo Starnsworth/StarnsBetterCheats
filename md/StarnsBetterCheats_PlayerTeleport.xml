@@ -2,8 +2,9 @@
 <mdscript name="StarnsBetterCheats_PlayerTeleportMenu"
 		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
-	<cues>		
-		<cue name="Register_Options_Menu"
+	<cues>
+    <!--Registration Cue: Commented until a menu is required.-->
+		<!--<cue name="Register_Options_Menu"
 			 instantiate="true"
 			 namespace="this">
 			<conditions>
@@ -22,7 +23,7 @@
 		$private = 1
         ]"/>
 			</actions>
-		</cue>
+		</cue>-->
 
 		<cue name="Build_Better_Cheat_Menu_PlayerTele"
 			 instantiate ="true"
@@ -49,31 +50,32 @@
 													$col = 2,
 													$colSpan = 2,
 													$text = 'Dock at selected station on teleport?']"/>-->
+        
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<do_if value="not md.StarnsBetterCheats.Config.$TeleDestination.{1}.knownname?">
-					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+					<!--<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
 										  param = "table[$col=1, 
 													 $colSpan = 1,				 
-													 $text='']"/>
+													 $text='']"/>-->
 					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
 										  param = "table[
 													$id = 'TeleportConfirmButton',
-													$col = 2,
+													$col = 1,
 													$colSpan = 3,
 													$onClick = TeleToLocation_OnClick,
-													$text = table[$text={1819001,18196}],
+													$text = table[$text={1819001,18196}, $halign = 'center'],
 													$active = false
 													]"/>
 				</do_if>
 				<do_else>
-					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+					<!--<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
 										  param = "table[$col=1, 
 													 $colSpan = 1,				 
-													 $text=md.StarnsBetterCheats.Config.$TeleDestination.{1}.knownname]"/>
+													 $text=md.StarnsBetterCheats.Config.$TeleDestination.{1}.knownname]"/>-->
 					<signal_cue_instantly cue="md.Simple_Menu_API.Make_Button"
 										  param = "table[
 													$id = 'TeleportConfirmButton',
-													$col = 2,
+													$col = 1,
 													$colSpan = 3,
 													$onClick = TeleToLocation_OnClick,
 													$text = table[$text={1819001,18195}]

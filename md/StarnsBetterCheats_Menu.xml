@@ -6,7 +6,7 @@
 	<!--
 		Contains only logic for building the main options menu. Sub-Menus (if any) will be given their own file.
 		Sub-Menu files shall be named as StarnsBetterCheatsMenu_[SubMenuTopic].xml
-		The script name shall be "StarnsBetterCheatsMenu[SubMenuTopic]"
+		The script name shall be "StarnsBetterCheatsMenu_[SubMenuTopic]"
 	-->
 	
 	<cues>
@@ -46,6 +46,10 @@
 							   directory="'Starns'"
 							   append="true"
 							   text="md.$SystemTimeAtGamestart + ' ' + player.age + ': Creating SBC Options menu.'"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_BoxText"
+                              param = "table[$col=1, $colSpan = 3, $text={1819001,18191}, $halign = 'center']"/>
+        
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
 									  param = "table[$col=1, $text={1819001, 18192}]"/>
@@ -73,23 +77,39 @@
 												$onClick = md.StarnsBetterCheatsMoney.OnMoneyCheatButtonConfirm,
 												$default = 0,
 												]"/>
+
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_BoxText"
+                              param = "table[$col=1, $colSpan = 3, $text={1819001,18194}, $halign = 'center']"/>
+        <signal_cue_instantly cue ="md.StarnsBetterCheats_PlayerTeleportMenu.Build_Better_Cheat_Menu_PlayerTele"/>
+
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_BoxText"
+                              param = "table[$col=1, $colSpan = 3, $text={1819001,19205}, $halign = 'center']"/>
         
-				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.StarnsBetterCheats_GodModeMenu.Build_Better_Cheat_Menu_GodMode"/>
+
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_BoxText"
+                              param = "table[$col=1, $colSpan = 3, $text={1819001,18189}, $halign = 'center']"/>
+        
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
 									  param="table[
 												$text={1819001, 18193},
 												$id='starns_better_cheat_RelationMenu']"/>
-				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        
+				<!--<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
 									  param="table[
 												$text={1819001, 18194},
-												$id='starns_better_cheat_PlayerTeleMenu']"/>
-				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+												$id='starns_better_cheat_PlayerTeleMenu']"/>-->
+        
+				<!--<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 				<signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
 									  param="table[
 												$text={1819001, 19205},
-												$id='starns_better_cheat_GodModeMenu']"/>
-        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+												$id='starns_better_cheat_GodModeMenu']"/>-->
+        
         <signal_cue_instantly cue="md.Simple_Menu_API.Add_Submenu_Link"
                               param="table[
 												$text={1819001, 19501},
