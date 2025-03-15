@@ -32,6 +32,9 @@
 				<event_cue_signalled/>
 			</conditions>
 			<actions>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_BoxText"
+                              param = "table[$col=1, $colSpan = 3, $text='Drag sliders to desired faction relation values', $halign = 'center']"/>
 				<include_actions ref="md.StarnsBetterCheats.Library_StarnsBetterCheatsGetFactions"/>
 				
 				<do_for_each name="$Faction"

@@ -3,7 +3,9 @@
 		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		  xsi:noNamespaceSchemaLocation="E:\x4 mods\unpacked\libraries\md.xsd">
 	<cues>
-		<cue name="Register_Options_Menu"
+    
+    <!--Registration Cue: Commented until a menu is required.-->
+		<!--<cue name="Register_Options_Menu"
 			 instantiate="true"
 			 namespace="this">
 			<conditions>
@@ -22,7 +24,7 @@
 		$private = 1
         ]"/>
 			</actions>
-		</cue>
+		</cue>-->
 		<!--Make a drop down that selects the ship size, then dropdown to select specific ships. Also have a switch for all player ships.
 	Should also have an option to make a selected ship invicible so that plot ships dont get shwacked.-->
 		<cue name="Build_Better_Cheat_Menu_GodMode"
